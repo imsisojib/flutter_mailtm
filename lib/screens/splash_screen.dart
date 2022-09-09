@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
     }else{
       //goto home screen
       tokenRepository.token = token;
-      Get.toNamed(Routes.homeScreen);
+      Get.offAllNamed(Routes.homeScreen);
     }
   }
 

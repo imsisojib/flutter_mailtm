@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mailtm/controllers/account_controller.dart';
-import 'package:flutter_mailtm/router/routes.dart';
-import 'package:flutter_mailtm/widgets/buttons/button_filled.dart';
-import 'package:flutter_mailtm/widgets/checkbox/custom_checkbox.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -58,16 +55,19 @@ class _DomainScreenState extends State<DomainScreen> {
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
                         (_, index) {
-                      return CustomCheckBox(
-                        name: accountController.domains[index].domain,
-                        checked: accountController.domainName.value==accountController.domains[index].domain,
-                        onChecked: (checked) {
-                          if(checked){
-                            accountController.selectedDomainName(accountController.domains[index].domain??"");
-                          }else{
-                            accountController.selectedDomainName("");
-                          }
+                      return InkWell(
+                        onTap: (){
+                          accountController.selectedDomainName(accountController.domains[index].domain??"");
                         },
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 8.h),
+                          padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 10.h),
+                          decoration: BoxDecoration(
+                            color: theme.cardColor,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Text(accountController.domains[index].domain??"",style: theme.textTheme.bodyText2?.copyWith(color: theme.colorScheme.secondary),),
+                        ),
                       );
                     },
                     childCount: accountController.domains.length,
