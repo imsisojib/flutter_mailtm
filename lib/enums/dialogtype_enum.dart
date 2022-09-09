@@ -1,0 +1,4 @@
+enum DialogTypeEnum{
+  success,
+  failed
+}

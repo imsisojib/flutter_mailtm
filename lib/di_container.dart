@@ -15,8 +15,8 @@ Future<void> init() async {
   sl.registerLazySingleton(() => sharedPreferences);
 
   //repositories
-  sl.registerLazySingleton(() => AccountRepository());
-  sl.registerLazySingleton(() => MailRepository());
+  sl.registerLazySingleton(() => AccountRepository(tokenRepository: sl(),cacheRepository: sl()));
+  sl.registerLazySingleton(() => MailRepository(tokenRepository: sl()));
   sl.registerLazySingleton(() => CacheRepository(sharedPreferences: sl()));
 
   //token manager

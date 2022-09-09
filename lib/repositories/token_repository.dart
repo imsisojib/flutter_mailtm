@@ -12,6 +12,11 @@ class TokenRepository{
       HttpHeaders.authorizationHeader : "Bearer $token",
     };
   }
+  Map<String,String> getHeadersForJsonWithoutToken(){
+    return {
+      HttpHeaders.contentTypeHeader: "application/json",
+    };
+  }
 
 
 }
