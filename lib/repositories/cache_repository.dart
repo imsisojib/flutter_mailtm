@@ -20,4 +20,12 @@ class CacheRepository{
     return sharedPreferences.getString("user_name");
   }
 
+  Future<void> saveMailList(String response) async {
+    await sharedPreferences.setString("mail_list", response);
+  }
+
+  Future<String?> fetchMailList() async {
+    return sharedPreferences.getString("mail_list");
+  }
+
 }

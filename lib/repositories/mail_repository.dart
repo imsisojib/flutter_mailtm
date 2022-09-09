@@ -3,13 +3,15 @@ import 'dart:convert';
 import 'package:flutter_mailtm/helpers/debugger.dart';
 import 'package:flutter_mailtm/models/maillist_response.dart';
 import 'package:flutter_mailtm/models/single_mail_response.dart';
+import 'package:flutter_mailtm/repositories/cache_repository.dart';
 import 'package:flutter_mailtm/repositories/token_repository.dart';
 import 'package:http/http.dart' as http;
 import 'api_constants.dart';
 
 class MailRepository{
+  final CacheRepository cacheRepository;
   final TokenRepository tokenRepository;
-  MailRepository({required this.tokenRepository});
+  MailRepository({required this.tokenRepository,required this.cacheRepository});
 
   Future<MailListResponse?> fetchMails(int index) async{
     try{
@@ -18,6 +20,8 @@ class MailRepository{
 
       Debugger.debug(tittle: "MailRepository.fetchMails(): response-code",data:  response.statusCode);
       Debugger.debug(tittle: "MailRepository.fetchMails(): response-body",data:  response.body);
+      //save for offline
+      cacheRepository.saveMailList(response.body);
 
       return MailListResponse.fromJson(jsonDecode(response.body),);
 

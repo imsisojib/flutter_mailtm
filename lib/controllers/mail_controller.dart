@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flutter_mailtm/helpers/network_checker.dart';
 import 'package:flutter_mailtm/models/maillist_response.dart';
 import 'package:flutter_mailtm/repositories/mail_repository.dart';
 import 'package:get/get.dart';
@@ -14,9 +17,15 @@ class MailController extends GetxController{
 
   Future<void> fetchMails() async {
     fetchingMails(true);
-
-    MailListResponse? response = await mailRepository.fetchMails(index);
+    mails.clear();
+    MailListResponse? response;
+    if(await NetworkHelper.connected()){
+      response = await mailRepository.fetchMails(index);
+    }else{
+      response = MailListResponse.fromJson(jsonDecode(await mailRepository.cacheRepository.fetchMailList()??""));
+    }
     if(response!=null){
+
       if(response.hydraMember!=null){
         mails.addAll(response.hydraMember!);
       }
