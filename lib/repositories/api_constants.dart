@@ -6,4 +6,7 @@ class ApiConstants{
   static const String crateAccount = "/accounts";
   static const String login = "/token";
 
+  //all mails
+  static const String allMails = "/messages";
+
 }
