@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
     String? token = await cacheRepository.fetchToken();
     if(token==null || token.isEmpty){
       //goto welcome screen to login/create account
-      Get.toNamed(Routes.welcomeScreen);
+      Get.offAllNamed(Routes.welcomeScreen);
     }else{
       //goto home screen
       tokenRepository.token = token;

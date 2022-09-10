@@ -6,6 +6,12 @@ class PageNotFoundScreen extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Text("Page Not Found!",style: Theme.of(context).textTheme.bodyText1,),
+        ),
+      ),
+    );
   }
 }

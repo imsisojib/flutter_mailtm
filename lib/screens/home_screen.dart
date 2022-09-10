@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mailtm/controllers/mail_controller.dart';
+import 'package:flutter_mailtm/enums/dialogtype_enum.dart';
+import 'package:flutter_mailtm/helpers/widget_helper.dart';
 import 'package:flutter_mailtm/router/routes.dart';
 import 'package:flutter_mailtm/widgets/bottomnav/animated_bottoappbar.dart';
 import 'package:flutter_mailtm/widgets/fabbutton/mail_fab.dart';
