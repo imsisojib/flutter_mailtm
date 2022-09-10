@@ -1,3 +1,4 @@
+import 'package:flutter_mailtm/controllers/app_controller.dart';
 import 'package:flutter_mailtm/controllers/mail_controller.dart';
 import 'package:flutter_mailtm/di_container.dart';
 import 'package:get/get.dart';
@@ -9,5 +10,6 @@ class StoreBinding implements Bindings {
   void dependencies() {
     Get.lazyPut(() => AccountController(accountRepository: sl()));
     Get.lazyPut(() => MailController(mailRepository: sl()));
+    Get.lazyPut(() => AppController());
   }
 }

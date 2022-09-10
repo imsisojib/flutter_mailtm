@@ -3,6 +3,8 @@ import 'package:flutter_mailtm/di_container.dart';
 import 'package:flutter_mailtm/models/single_mail_response.dart';
 import 'package:flutter_mailtm/repositories/mail_repository.dart';
 import 'package:flutter_mailtm/resources/app_images.dart';
+import 'package:flutter_mailtm/widgets/bottomnav/animated_bottoappbar.dart';
+import 'package:flutter_mailtm/widgets/fabbutton/mail_fab.dart';
 import 'package:get/get.dart';
 
 class MailViewScreen extends StatefulWidget {
@@ -14,9 +16,67 @@ class MailViewScreen extends StatefulWidget {
   State<MailViewScreen> createState() => _MailViewScreenState();
 }
 
-class _MailViewScreenState extends State<MailViewScreen> {
-
+class _MailViewScreenState extends State<MailViewScreen> with TickerProviderStateMixin{
   final MailRepository mailRepository = sl();
+
+  late final AnimationController _drawerController;
+  late final AnimationController _dropArrowController;
+  late final AnimationController _bottomAppBarController;
+  late final Animation<double> _drawerCurve;
+  late final Animation<double> _dropArrowCurve;
+  late final Animation<double> _bottomAppBarCurve;
+  final _kAnimationDuration = Duration(milliseconds: 300);
+  bool _bottomDrawerVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _drawerController = AnimationController(
+      duration: _kAnimationDuration,
+      value: 0,
+      vsync: this,
+    )..addListener(() {
+      if (_drawerController.status == AnimationStatus.dismissed &&
+          _drawerController.value == 0) {
+        //change state
+      }
+
+      if (_drawerController.value < 0.01) {
+
+      }
+    });
+
+    _dropArrowController = AnimationController(
+      duration: _kAnimationDuration,
+      vsync: this,
+    );
+
+    _bottomAppBarController = AnimationController(
+      vsync: this,
+      value: 1,
+      duration: const Duration(milliseconds: 250),
+    );
+
+    _drawerCurve = CurvedAnimation(
+      parent: _drawerController,
+      curve: standardEasing,
+      reverseCurve: standardEasing.flipped,
+    );
+
+    _dropArrowCurve = CurvedAnimation(
+      parent: _dropArrowController,
+      curve: standardEasing,
+      reverseCurve: standardEasing.flipped,
+    );
+
+    _bottomAppBarCurve = CurvedAnimation(
+      parent: _bottomAppBarController,
+      curve: standardEasing,
+      reverseCurve: standardEasing.flipped,
+    );
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +130,17 @@ class _MailViewScreenState extends State<MailViewScreen> {
           },
         ),
       ),
+      bottomNavigationBar:  AnimatedBottomAppBar(
+        bottomAppBarController: _bottomAppBarController,
+        bottomAppBarCurve: _bottomAppBarCurve,
+        bottomDrawerVisible: _bottomDrawerVisible,
+        drawerController: _drawerController,
+        dropArrowCurve: _dropArrowCurve,
+        onMailView: true,
+        toggleBottomDrawerVisibility: () {  },
+      ),
+      floatingActionButton: MailFab(onMailView: true,),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
