@@ -16,6 +16,7 @@ class AnimatedBottomAppBar extends StatelessWidget {
   final VoidCallback toggleBottomDrawerVisibility;
   final bool onMailView;
   final Function? onDeleteAction;
+  final Function? onRefresh;
   const AnimatedBottomAppBar({
     required this.toggleBottomDrawerVisibility,
     required this.onMailView,
@@ -23,7 +24,7 @@ class AnimatedBottomAppBar extends StatelessWidget {
     required this.bottomAppBarCurve,
     required this.bottomDrawerVisible,
     required this.drawerController,
-    required this.dropArrowCurve, this.onDeleteAction,
+    required this.dropArrowCurve, this.onDeleteAction, this.onRefresh,
   });
 
   @override
@@ -95,6 +96,7 @@ class AnimatedBottomAppBar extends StatelessWidget {
                     color: Colors.transparent,
                     child: BottomAppBarActionItems(
                       onDelete: onDeleteAction,
+                      onRefresh: onRefresh,
                       drawerController: drawerController,
                       drawerVisible: bottomDrawerVisible,
                       onMailView: onMailView,

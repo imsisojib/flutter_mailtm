@@ -9,12 +9,13 @@ class BottomAppBarActionItems extends StatelessWidget {
   final bool drawerVisible;
   final bool onMailView;
   final Function? onDelete;
+  final Function? onRefresh;
 
   const BottomAppBarActionItems({
     required this.drawerController,
     required this.drawerVisible,
     required this.onMailView,
-    this.onDelete,
+    this.onDelete, this.onRefresh,
   });
 
 
@@ -51,23 +52,33 @@ class BottomAppBarActionItems extends StatelessWidget {
           ),
         ],
       )
-          : Align(
-        key: UniqueKey(),
-        alignment: AlignmentDirectional.bottomEnd,
-        child: IconButton(
-          icon: const Icon(Icons.settings),
-          color: AppColors.white50,
-          onPressed: () async {
-            drawerController.reverse();
-            showModalBottomSheet(
+          :Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: () {
+              onRefresh?.call();
+            },
+            color: AppColors.white50,
+          ),
+          IconButton(
+            icon: const Icon(Icons.settings),
+            color: AppColors.white50,
+            onPressed: () async {
+              drawerController.reverse();
+              showModalBottomSheet(
                 context: context,
                 shape: RoundedRectangleBorder(
                   borderRadius: modalBorder,
                 ),
                 builder: (context) => const SettingsBottomSheet(),
-            );
-          },
-        ),
+              );
+            },
+          )
+        ],
       ),
     );
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mailtm/controllers/mail_controller.dart';
 import 'package:flutter_mailtm/di_container.dart';
 import 'package:flutter_mailtm/models/single_mail_response.dart';
 import 'package:flutter_mailtm/repositories/mail_repository.dart';
@@ -17,7 +18,7 @@ class MailViewScreen extends StatefulWidget {
 }
 
 class _MailViewScreenState extends State<MailViewScreen> with TickerProviderStateMixin{
-  final MailRepository mailRepository = sl();
+  final MailController mailController = Get.find();
 
   late final AnimationController _drawerController;
   late final AnimationController _dropArrowController;
@@ -84,7 +85,7 @@ class _MailViewScreenState extends State<MailViewScreen> with TickerProviderStat
       body: SafeArea(
         bottom: false,
         child: FutureBuilder(
-          future: mailRepository.fetchSingleMail(widget.mailId),
+          future: mailController.mailRepository.fetchSingleMail(widget.mailId),
           builder: (_,AsyncSnapshot response){
             if(response.connectionState==ConnectionState.done){
 
@@ -138,6 +139,9 @@ class _MailViewScreenState extends State<MailViewScreen> with TickerProviderStat
         dropArrowCurve: _dropArrowCurve,
         onMailView: true,
         toggleBottomDrawerVisibility: () {  },
+        onDeleteAction: (){
+          mailController.deleteMail(widget.mailId??"");
+        },
       ),
       floatingActionButton: MailFab(onMailView: true,),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

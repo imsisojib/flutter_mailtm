@@ -17,6 +17,7 @@ class HomeScreen extends StatefulWidget{
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
   final MailController mailController = Get.find();
+  ScrollController scrollController = ScrollController();
 
   late final AnimationController _drawerController;
   late final AnimationController _dropArrowController;
@@ -33,6 +34,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       mailController.fetchMails();
+    });
+
+    scrollController.addListener(() {
+      //print("MaxExtent: ${scrollController!.position.maxScrollExtent},  Offset: ${scrollController!.offset}");
+      if (scrollController.position.maxScrollExtent <=
+          scrollController.offset + (100)) {
+        mailController.fetchMoreMails();
+      }
     });
 
     _drawerController = AnimationController(
@@ -87,6 +96,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
       body: SafeArea(
         child: Obx((){
           return CustomScrollView(
+            controller: scrollController,
             physics: const BouncingScrollPhysics(),
             slivers: [
               SliverList(delegate: SliverChildBuilderDelegate(
@@ -104,6 +114,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                 child: Center(
                   child: CircularProgressIndicator(),
                 ),
+              ):mailController.mails.isEmpty?const SliverFillRemaining(
+                child: Center(child: Text("Inbox is empty!"),),
               ):SliverToBoxAdapter()
             ],
           );
@@ -116,6 +128,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
         drawerController: _drawerController,
         dropArrowCurve: _dropArrowCurve,
         onMailView: false,
+        onRefresh: (){
+          mailController.fetchMails();
+        },
         toggleBottomDrawerVisibility: () {
           //todo
           Fluttertoast.showToast(msg: "Not Implemented!");
@@ -124,5 +139,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
       floatingActionButton: MailFab(onMailView: false,),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+
+    scrollController.dispose();
   }
 }

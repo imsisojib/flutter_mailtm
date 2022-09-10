@@ -49,4 +49,22 @@ class MailRepository{
 
     return null;
   }
+
+  Future<int?> deleteMail(String? mailId) async{
+    try{
+      Uri url = Uri.parse("${ApiConstants.baseUrl}${ApiConstants.allMails}/$mailId");
+      Debugger.debug(tittle: "MailRepository.deleteMail(): url",data:  url);
+      http.Response response = await http.delete(url,headers: tokenRepository.getHeadersForJson(),);
+
+      Debugger.debug(tittle: "MailRepository.deleteMail(): response-code",data:  response.statusCode);
+      Debugger.debug(tittle: "MailRepository.deleteMail(): response-body",data:  response.body);
+
+      return response.statusCode;
+
+    }catch(e){
+      Debugger.debug(tittle: "MailRepository.fetchSingleMail(): catch-error",data:  e);
+    }
+
+    return null;
+  }
 }
