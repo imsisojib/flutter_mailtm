@@ -111,7 +111,7 @@ class _MailViewScreenState extends State<MailViewScreen> with TickerProviderStat
                       children: [
                         _MailViewHeader(
                           subject: mailResponse.subject,
-                          receiverName: (mailResponse.to!=null && mailResponse.to!.isNotEmpty)?mailResponse.to![0].name:"",
+                          receiverName: (mailResponse.to!=null && mailResponse.to!.isNotEmpty)?mailResponse.to![0].address:"",
                           senderMail: mailResponse.from?.address,
                           date: mailResponse.createdAt,
                         ),
@@ -166,6 +166,8 @@ class _MailViewHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
+    String? parseName = receiverName?.split("@").first;
+
     return Column(
       children: [
         Row(
@@ -198,7 +200,7 @@ class _MailViewHeader extends StatelessWidget {
                 Text('${senderMail??""} - ${date?.substring(0,10)??""}'),
                 const SizedBox(height: 4),
                 Text(
-                  'To ${receiverName??""},',
+                  'To ${parseName??""},',
                   style: textTheme.caption!.copyWith(
                     color: Theme.of(context)
                         .colorScheme
