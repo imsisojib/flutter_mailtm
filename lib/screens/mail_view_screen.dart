@@ -6,6 +6,7 @@ import 'package:flutter_mailtm/repositories/mail_repository.dart';
 import 'package:flutter_mailtm/resources/app_images.dart';
 import 'package:flutter_mailtm/widgets/bottomnav/animated_bottoappbar.dart';
 import 'package:flutter_mailtm/widgets/fabbutton/mail_fab.dart';
+import 'package:flutter_mailtm/widgets/html/html_viewer.dart';
 import 'package:get/get.dart';
 
 class MailViewScreen extends StatefulWidget {
@@ -115,6 +116,10 @@ class _MailViewScreenState extends State<MailViewScreen> with TickerProviderStat
                           date: mailResponse.createdAt,
                         ),
                         const SizedBox(height: 32),
+                        (mailResponse.html!=null && mailResponse.html!.isNotEmpty)?
+                        HtmlViewer(
+                          description: mailResponse.html![0],
+                        ):
                         Text(
                           mailResponse.text??"",
                           style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 16),
