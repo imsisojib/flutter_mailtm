@@ -1,16 +1,31 @@
 # flutter_mailtm
+A flutter project to practice handling mail account and app theme with GetX.
 
-A new Flutter project.
+| Welcome Screen |
+| ----- |
+| <img src="https://github.com/imsisojib/flutter_mailtm/blob/master/screenshots/welcome_screen.jpg?raw=true" width="1024px"> |
 
-## Getting Started
+| Choose Domain Screen |
+| ----- |
+| <img src="https://github.com/imsisojib/flutter_mailtm/blob/master/screenshots/choose_domain.jpg?raw=true" width="1024px"> |
 
-This project is a starting point for a Flutter application.
+| Create Account Screen |
+| ----- |
+| <img src="https://github.com/imsisojib/flutter_mailtm/blob/master/screenshots/create_account.jpg?raw=true" width="1024px"> |
 
-A few resources to get you started if this is your first Flutter project:
+| Login Screen |
+| ----- |
+| <img src="https://github.com/imsisojib/flutter_mailtm/blob/master/screenshots/login_screen.jpg?raw=true" width="1024px"> |
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+| Home Screen |
+| ----- |
+| <img src="https://github.com/imsisojib/flutter_mailtm/blob/master/screenshots/home_screen.jpg?raw=true" width="1024px"> |
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+| Mail Details Screen |
+| ----- |
+| <img src="https://github.com/imsisojib/flutter_mailtm/blob/master/screenshots/details_screen.jpg?raw=true" width="1024px"> |
+
+
+
+
+
