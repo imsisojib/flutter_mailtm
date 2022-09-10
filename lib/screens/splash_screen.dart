@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
     //sample delay
     await Future.delayed(const Duration(seconds: 3,),);
     String? token = await cacheRepository.fetchToken();
-    if(token==null){
+    if(token==null || token.isEmpty){
       //goto welcome screen to login/create account
       Get.toNamed(Routes.welcomeScreen);
     }else{

@@ -28,4 +28,10 @@ class CacheRepository{
     return sharedPreferences.getString("mail_list");
   }
 
+  Future<void> clearCache() async {
+    await sharedPreferences.setString("token", "");
+    await sharedPreferences.setString("mail_list", "");
+    await sharedPreferences.setString("user_name", "");
+  }
+
 }

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mailtm/controllers/app_controller.dart';
+import 'package:flutter_mailtm/di_container.dart';
+import 'package:flutter_mailtm/repositories/cache_repository.dart';
+import 'package:flutter_mailtm/router/routes.dart';
+import 'package:flutter_mailtm/widgets/buttons/button_filled.dart';
 import 'package:get/get.dart';
 
 
@@ -26,6 +30,7 @@ class SettingsBottomSheet extends StatefulWidget {
 class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
   late ThemeMode _themeMode;
   final AppController appController = Get.find();
+  final CacheRepository cacheRepository = sl();
 
   @override
   void initState() {
@@ -70,6 +75,21 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
                     ),
                 ],
               ),
+              SizedBox(height: 8,),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24),
+                child: ButtonFilled(
+                  width: MediaQuery.of(context).size.width,
+                  buttonText: "Sign Out",
+                  function: ()async{
+                    await cacheRepository.clearCache();
+                    Get.offAllNamed(Routes.welcomeScreen);
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 24,
+              )
             ],
           ),
         ),
