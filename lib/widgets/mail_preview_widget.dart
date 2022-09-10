@@ -70,7 +70,7 @@ class MailPreviewCard extends StatelessWidget {
                             style: textTheme.caption,
                           ),
                           const SizedBox(height: 4),
-                          Text(email.subject??"", style: textTheme.headline5),
+                          Text(email.subject??"", style: textTheme.headline5,maxLines: 3,softWrap: true,overflow: TextOverflow.ellipsis,),
                           const SizedBox(height: 16),
                         ],
                       ),
